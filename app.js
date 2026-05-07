@@ -61,12 +61,49 @@ function animateCount(id, target, suffix = '', duration = 1800) {
   requestAnimationFrame(run);
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────
+// ── DYNAMIC STAT CARDS (from data.js — never hardcoded) ──────
+function buildStatCards() {
+  const d = ELECTION_DATA;
+  const majority = d.meta.majority;
+  const tvk  = d.alliances.find(a => a.id === 'TVK+');
+  const spa   = d.alliances.find(a => a.id === 'SPA');
+  const admk  = d.alliances.find(a => a.id === 'ADMK+');
+  const inc   = d.parties.find(p => p.id === 'INC');
+  const short = majority - tvk.seats;
+
+  document.getElementById('stat-cards').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">TVK (Thalapathy Vijay)</div>
+      <div class="stat-value" style="color:#800080">${tvk.seats}</div>
+      <div class="stat-sub">Seats · Single Largest Party</div>
+      <div class="stat-chip" style="background:rgba(128,0,128,.12);color:#800080">↑ Historic Debut</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-label">SPA Alliance (DMK+)</div>
+      <div class="stat-value" style="color:#CC0000">${spa.seats}</div>
+      <div class="stat-sub">Seats · DMK alone: ${d.parties.find(p=>p.id==='DMK').seats}</div>
+      <div class="stat-chip down">↓ Worst result since 2011</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">AIADMK Alliance</div>
+      <div class="stat-value" style="color:#009933">${admk.seats}</div>
+      <div class="stat-sub">Seats · AIADMK alone: ${d.parties.find(p=>p.id==='ADMK').seats}</div>
+      <div class="stat-chip" style="background:rgba(0,153,51,.12);color:#009933">↓ Continued Decline</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">Hung Assembly</div>
+      <div class="stat-value" style="color:#3B82F6">${majority}</div>
+      <div class="stat-sub">Majority needed · TVK ${short} short</div>
+      <div class="stat-chip" style="background:rgba(59,130,246,.12);color:#3B82F6">🤝 INC: Only ${inc.seats} seats</div>
+    </div>`;
+}
+
 function buildDashboard() {
   animateCount('cnt-seats', 234, '');
   animateCount('cnt-voters', 64.5, 'M');
   animateCount('cnt-turnout', 73.4, '%');
   animateCount('cnt-phases', 1, '');
+  buildStatCards();
 
   if(charts.donut) charts.donut.destroy();
   charts.donut = new Chart(document.getElementById('allianceDonut'), {
