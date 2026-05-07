@@ -38,9 +38,9 @@ function buildTicker() {
   const items = [
     '🎭 TVK wins 108 seats — Thalapathy Vijay is Tamil Nadu\'s single largest party',
     '⚖️ Hung Assembly: TVK needs 10 more seats for majority — INC talks ongoing',
+    `🗳️ ${ELECTION_DATA.meta.turnout}% voter turnout — Tamil Nadu votes massively for change`,
+    '🍃 AIADMK continues to decline — lowest seat share since 2006',
     '📉 DMK crashes from 133 to just 59 seats — worst result since 2011',
-    '🗳️ 73.4% voter turnout — Tamil Nadu votes massively for change',
-    '🍃 AIADMK continues decline: 66 seats in 2021 to 47 in 2026',
     '❌ NTK blanked out despite 5.4% vote share — FPTP hurts Seeman',
     '🤝 Congress with 14 seats holds the key to government formation'
   ];
@@ -99,10 +99,13 @@ function buildStatCards() {
 }
 
 function buildDashboard() {
-  animateCount('cnt-seats', 234, '');
-  animateCount('cnt-voters', 64.5, 'M');
-  animateCount('cnt-turnout', 73.4, '%');
-  animateCount('cnt-phases', 1, '');
+  const totalVotersVal = parseFloat(ELECTION_DATA.meta.totalVoters);
+  const totalVotersUnit = ELECTION_DATA.meta.totalVoters.replace(/[\d.]/g, '').trim();
+
+  animateCount('cnt-seats', ELECTION_DATA.meta.totalSeats, '');
+  animateCount('cnt-voters', totalVotersVal, totalVotersUnit ? ' ' + totalVotersUnit : '');
+  animateCount('cnt-turnout', ELECTION_DATA.meta.turnout, '%');
+  animateCount('cnt-phases', ELECTION_DATA.meta.phases, '');
   buildStatCards();
 
   if(charts.donut) charts.donut.destroy();
@@ -359,8 +362,8 @@ function getLocalAnswer(q) {
   if (ql.includes('ntk') || ql.includes('seeman'))
     return 'Seeman\'s NTK, despite a significant vote share, failed to win a single seat in the 2026 Tamil Nadu assembly election — a brutal outcome from the First-Past-The-Post system.';
   if (ql.includes('turnout') || ql.includes('voter'))
-    return 'The 2026 Tamil Nadu election recorded a 73.4% voter turnout. The massive TVK wave drove unprecedented participation, especially among youth and first-time voters.';
-  return 'Official ECI results (results.eci.gov.in): TVK 108, DMK 59, AIADMK 47, INC 5, PMK 4, IUML 2, CPI 2. It is a hung assembly — TVK needs 10 more seats to reach the 118 majority mark.';
+    return `The 2026 Tamil Nadu election recorded an impressive ${ELECTION_DATA.meta.turnout}% voter turnout. The massive TVK wave drove unprecedented participation, especially among youth and first-time voters.`;
+  return `Official ECI results (results.eci.gov.in): TVK 108, DMK 59, AIADMK 47, INC 5, PMK 4, IUML 2, CPI 2. It is a hung assembly — TVK needs 10 more seats to reach the 118 majority mark.`;
 }
 
 function buildLiveFeed() {
