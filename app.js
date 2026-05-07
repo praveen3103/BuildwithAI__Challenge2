@@ -210,13 +210,16 @@ function buildAnalytics() {
     options: { plugins: { legend: { display: false } }, scales: { x: { grid: GRID }, y: { grid: GRID } } }
   });
 
-  document.getElementById('seats-grid').innerHTML = ELECTION_DATA.keySeats.map(s => `
+  document.getElementById('seats-grid').innerHTML = ELECTION_DATA.keySeats.map(s => {
+    const marginDisplay = typeof s.margin === 'number' ? `Margin: <span>${s.margin.toLocaleString()}</span> votes` : `<span style="color:var(--accent-r);font-weight:bold">${s.margin}</span>`;
+    return `
     <div class="seat-card">
       <div class="seat-name">${s.name}</div>
       <div class="seat-winner">🏆 ${s.winner} <strong style="color:var(--accent-o)">(${s.party})</strong></div>
-      <div class="seat-margin">Margin: <span>${s.margin.toLocaleString()}</span> votes</div>
+      <div class="seat-margin">${marginDisplay}</div>
       <div style="font-size:12px;color:var(--text-3);margin-top:4px">Turnout: ${s.turnout}%</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ── STATES / REGIONS ──────────────────────────────────────────

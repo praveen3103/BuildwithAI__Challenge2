@@ -10,8 +10,8 @@ const ELECTION_DATA = {
     resultDate: "May 4-5, 2026",
     totalSeats: 234,
     majority: 118,
-    totalVoters: "64.5 Million",
-    turnout: 73.4,
+    totalVoters: "4.87 Crores",
+    turnout: 85.10,
     phases: 1,
     source: "results.eci.gov.in"
   },
@@ -53,11 +53,13 @@ const ELECTION_DATA = {
   ],
 
   keySeats: [
-    { name:"Kolathur",       winner:"M.K. Stalin",         party:"DMK",  margin:41000, turnout:68.2 },
-    { name:"Edappadi",       winner:"E.K. Palaniswami",    party:"ADMK", margin:38000, turnout:78.5 },
-    { name:"Thondamuthur",   winner:"Thalapathy Vijay",    party:"TVK",  margin:72000, turnout:79.3 },
-    { name:"Chepauk",        winner:"INC Candidate",       party:"INC",  margin:8200,  turnout:65.1 },
-    { name:"Vellore",        winner:"DMK Candidate",       party:"DMK",  margin:15400, turnout:70.8 }
+    { name:"Perambur",               winner:"C. Joseph Vijay",     party:"TVK",   margin:45000, turnout:85.1 },
+    { name:"Kolathur",               winner:"M.K. Stalin",         party:"DMK",   margin:"LOST", turnout:85.1 },
+    { name:"Chepauk-Thiruvallikeni", winner:"Udhayanidhi Stalin",  party:"DMK",   margin:32000, turnout:85.1 },
+    { name:"Edappadi",               winner:"K. Palaniswami",      party:"ADMK",  margin:41000, turnout:85.1 },
+    { name:"Coimbatore (North)",     winner:"Vanathi Srinivasan",  party:"BJP",   margin:"LOST", turnout:85.1 },
+    { name:"Thondamuthur",           winner:"S.P. Velumani",       party:"ADMK",  margin:28000, turnout:85.1 },
+    { name:"Tiruchirappalli (East)", winner:"C. Joseph Vijay",     party:"TVK",   margin:51000, turnout:85.1 }
   ],
 
   insights: [
