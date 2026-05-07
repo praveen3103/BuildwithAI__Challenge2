@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ElectionIQ — AI-Powered Election Insights</title>
+<meta name="description" content="Transform India election data into simple intuitive insights powered by Gemini AI."/>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div id="ticker-bar"><div class="ticker-inner" id="ticker-inner"></div></div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">🗳️</div>
+    <div class="logo-text">Election<span>IQ</span></div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('dashboard',this)">Dashboard</button>
+    <button class="nav-tab" onclick="showSection('analytics',this)">Analytics</button>
+    <button class="nav-tab" onclick="showSection('states',this)">States</button>
+    <button class="nav-tab" onclick="showSection('ai',this)">AI Insights</button>
+    <button class="nav-tab" onclick="showSection('compare',this)">Compare</button>
+  </div>
+  <div class="nav-badge">🔴 LIVE RESULTS 2024</div>
+</nav>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section active">
+  <div class="hero">
+    <div class="hero-tag">🇮🇳 India General Election 2024</div>
+    <h1>Decoding <em>Democracy</em> with AI</h1>
+    <p>Real-time insights from 969 million voters across 543 constituencies</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val" id="cnt-seats">0</div><div class="lbl">Total Seats</div></div>
+      <div class="hero-stat"><div class="val" id="cnt-voters">0M</div><div class="lbl">Voters</div></div>
+      <div class="hero-stat"><div class="val" id="cnt-turnout">0%</div><div class="lbl">Turnout</div></div>
+      <div class="hero-stat"><div class="val" id="cnt-phases">0</div><div class="lbl">Phases</div></div>
+    </div>
+  </div>
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-label">NDA Alliance</div>
+      <div class="stat-value" style="color:#FF6B2B">293</div>
+      <div class="stat-sub">Seats · Majority 272</div>
+      <div class="stat-chip">✓ Forms Government</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">INDIA Alliance</div>
+      <div class="stat-value" style="color:#3B82F6">234</div>
+      <div class="stat-sub">Seats · Best since 2009</div>
+      <div class="stat-chip" style="background:rgba(59,130,246,.12);color:#3B82F6">↑ Strong Opposition</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">Women Elected</div>
+      <div class="stat-value" style="color:#10B981">74</div>
+      <div class="stat-sub">Highest ever in Lok Sabha</div>
+      <div class="stat-chip" style="background:rgba(16,185,129,.12);color:#10B981">↑ Record</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-label">BJP Swing</div>
+      <div class="stat-value" style="color:#EF4444">−63</div>
+      <div class="stat-sub">Seats lost vs 2019</div>
+      <div class="stat-chip down">↓ 303 → 240</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Alliance Seat Distribution</div>
+      <div class="chart-wrap"><canvas id="allianceDonut" height="220"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:#3B82F6"></span>Party-wise Seats</div>
+      <div id="party-list"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-title"><span class="dot" style="background:#10B981"></span>Seat Majority Tracker</div>
+    <div class="seat-bar" id="majority-bar" style="height:16px;border-radius:8px"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--text-3)">
+      <span>0</span><span style="color:var(--accent-g);font-weight:600">▲ 272 Majority</span><span>543</span>
+    </div>
+  </div>
+  <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:14px">🤖 Key Insights</div>
+  <div class="insights-grid" id="insights-grid"></div>
+</section>
+
+<!-- ANALYTICS -->
+<section id="analytics" class="section">
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Historical Seat Trends</div>
+      <div class="chart-wrap"><canvas id="historicalLine" height="220"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:#3B82F6"></span>Voter Turnout by Year</div>
+      <div class="chart-wrap"><canvas id="turnoutBar" height="220"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:#10B981"></span>Vote Share 2024</div>
+      <div class="chart-wrap"><canvas id="voteShareBar" height="220"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:#EF4444"></span>Seat Gain/Loss vs 2019</div>
+      <div class="chart-wrap"><canvas id="swingBar" height="220"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:#F9A825"></span>Key Constituency Results</div>
+    <div class="seats-grid" id="seats-grid"></div>
+  </div>
+</section>
+
+<!-- STATES -->
+<section id="states" class="section">
+  <div class="card">
+    <div class="card-title"><span class="dot"></span>State-wise Results — India 2024</div>
+    <table class="states-table">
+      <thead><tr><th>State</th><th>Seats</th><th>BJP</th><th>INC</th><th>Others</th><th>Distribution</th><th>Leading</th><th>Turnout</th></tr></thead>
+      <tbody id="states-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AI -->
+<section id="ai" class="section">
+  <div class="ai-panel">
+    <div class="ai-header">
+      <div class="ai-icon">✨</div>
+      <div><div class="ai-title">Ask Gemini AI about the Election</div><div class="ai-sub">Powered by Google Gemini · Natural language election Q&A</div></div>
+    </div>
+    <div class="ai-chips" id="ai-chips"></div>
+    <div class="ai-input-row">
+      <input id="ai-input" type="text" placeholder="e.g. Which state had the biggest swing against BJP?"/>
+      <button id="ai-send" onclick="askAI()">Ask AI ✨</button>
+    </div>
+    <div class="ai-response" id="ai-response">Ask any question about the 2024 Indian General Election and I'll analyze the data for you.</div>
+  </div>
+  <div class="grid-2" style="margin-top:24px">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Live Updates Feed</div>
+      <div class="live-feed" id="live-feed"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot" style="background:#8B5CF6"></span>Party Policy Priorities</div>
+      <div class="chart-wrap"><canvas id="radarChart" height="260"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" class="section">
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-title"><span class="dot"></span>BJP vs INC — Head to Head</div>
+    <div style="display:flex;justify-content:space-around;margin-bottom:20px;padding:16px 0;border-bottom:1px solid var(--border)">
+      <div style="text-align:center"><div style="font-size:32px">🪷</div><div style="font-weight:700;color:#FF6B2B;font-size:18px">BJP</div><div style="font-size:12px;color:var(--text-3)">NDA Alliance</div></div>
+      <div style="text-align:center;font-size:24px;align-self:center;color:var(--text-3)">VS</div>
+      <div style="text-align:center"><div style="font-size:32px">✋</div><div style="font-weight:700;color:#1565C0;font-size:18px">INC</div><div style="font-size:12px;color:var(--text-3)">INDIA Alliance</div></div>
+    </div>
+    <div id="compare-rows"></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="dot" style="background:#10B981"></span>Alliance Strength 2024</div>
+    <div class="chart-wrap"><canvas id="allianceBar" height="200"></canvas></div>
+  </div>
+</section>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
