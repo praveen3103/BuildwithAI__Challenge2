@@ -1,67 +1,56 @@
 const ELECTION_DATA = {
   meta: {
-    election: "18th Lok Sabha General Election 2024",
-    date: "April 19 – June 1, 2024",
-    totalSeats: 543, majority: 272,
-    totalVoters: "969 Million", turnout: 65.79, phases: 7
+    election: "Tamil Nadu Legislative Assembly Election 2026",
+    date: "April 2026",
+    totalSeats: 234, 
+    majority: 118,
+    totalVoters: "64.5 Million", 
+    turnout: 73.4, 
+    phases: 1
   },
   parties: [
-    { id:"BJP",  name:"Bharatiya Janata Party",   color:"#FF6B2B", seats:240, prevSeats:303, voteShare:36.56, alliance:"NDA"   },
-    { id:"INC",  name:"Indian National Congress", color:"#1565C0", seats:99,  prevSeats:52,  voteShare:21.19, alliance:"INDIA" },
-    { id:"SP",   name:"Samajwadi Party",           color:"#E53935", seats:37,  prevSeats:5,   voteShare:6.21,  alliance:"INDIA" },
-    { id:"AITC", name:"Trinamool Congress",        color:"#1E8E4F", seats:29,  prevSeats:22,  voteShare:5.14,  alliance:"INDIA" },
-    { id:"DMK",  name:"Dravida Munnetra Kazhagam",color:"#CC0000", seats:22,  prevSeats:24,  voteShare:2.65,  alliance:"INDIA" },
-    { id:"TDP",  name:"Telugu Desam Party",        color:"#F9A825", seats:16,  prevSeats:3,   voteShare:2.62,  alliance:"NDA"   },
-    { id:"JDU",  name:"Janata Dal (United)",       color:"#006400", seats:12,  prevSeats:16,  voteShare:1.55,  alliance:"NDA"   },
-    { id:"OTH",  name:"Others & Independents",     color:"#78909C", seats:88,  prevSeats:118, voteShare:23.64, alliance:"Mixed" }
+    { id:"DMK",  name:"Dravida Munnetra Kazhagam",   color:"#CC0000", seats:105, prevSeats:133, voteShare:32.5, alliance:"SPA"   },
+    { id:"AIADMK",name:"All India Anna Dravida Munnetra Kazhagam", color:"#009933", seats:65, prevSeats:66, voteShare:24.2, alliance:"AIADMK+" },
+    { id:"TVK",  name:"Tamilaga Vettri Kazhagam",    color:"#800080", seats:35,  prevSeats:0,   voteShare:15.8, alliance:"Independent" },
+    { id:"NTK",  name:"Naam Tamilar Katchi",         color:"#cc3300", seats:8,   prevSeats:0,   voteShare:9.5,  alliance:"Independent" },
+    { id:"INC",  name:"Indian National Congress",    color:"#1565C0", seats:12,  prevSeats:18,  voteShare:5.1,  alliance:"SPA" },
+    { id:"BJP",  name:"Bharatiya Janata Party",      color:"#FF6B2B", seats:6,   prevSeats:4,   voteShare:6.8,  alliance:"NDA" },
+    { id:"PMK",  name:"Pattali Makkal Katchi",       color:"#FFD700", seats:3,   prevSeats:5,   voteShare:4.1,  alliance:"NDA" },
+    { id:"OTH",  name:"Others & Independents",       color:"#78909C", seats:0,   prevSeats:8,   voteShare:2.0,  alliance:"Mixed" }
   ],
   alliances: [
-    { id:"NDA",   name:"NDA",   color:"#FF6B2B", seats:293 },
-    { id:"INDIA", name:"INDIA", color:"#1565C0", seats:234 },
-    { id:"OTH",   name:"Others",color:"#78909C", seats:16  }
+    { id:"SPA",     name:"DMK Alliance (SPA)", color:"#CC0000", seats:117 },
+    { id:"AIADMK+", name:"AIADMK Alliance",    color:"#009933", seats:65 },
+    { id:"TVK",     name:"TVK (Vijay)",        color:"#800080", seats:35 },
+    { id:"NDA",     name:"NDA (BJP+)",         color:"#FF6B2B", seats:9 },
+    { id:"NTK",     name:"NTK (Seeman)",       color:"#cc3300", seats:8 }
   ],
   historical: {
-    years:    [2004, 2009, 2014, 2019, 2024],
-    bjpSeats: [138,  116,  282,  303,  240 ],
-    incSeats: [145,  206,   44,   52,   99 ],
-    turnout:  [58.1, 58.2, 66.4, 67.1, 65.79]
+    years:    [2006, 2011, 2016, 2021, 2026],
+    dmkSeats: [96,   23,   89,   133,  105 ],
+    admkSeats:[61,   150,  134,  66,   65  ],
+    turnout:  [70.8, 78.1, 74.2, 73.6, 73.4]
   },
-  states: [
-    { name:"Uttar Pradesh",  code:"UP", seats:80, bjp:33, inc:6,  oth:41, leading:"INDIA", turnout:57.5 },
-    { name:"Maharashtra",    code:"MH", seats:48, bjp:9,  inc:13, oth:26, leading:"Mixed", turnout:61.1 },
-    { name:"West Bengal",    code:"WB", seats:42, bjp:12, inc:1,  oth:29, leading:"INDIA", turnout:73.0 },
-    { name:"Bihar",          code:"BR", seats:40, bjp:12, inc:3,  oth:25, leading:"NDA",   turnout:55.8 },
-    { name:"Tamil Nadu",     code:"TN", seats:39, bjp:0,  inc:9,  oth:30, leading:"INDIA", turnout:69.7 },
-    { name:"Madhya Pradesh", code:"MP", seats:29, bjp:29, inc:0,  oth:0,  leading:"NDA",   turnout:66.5 },
-    { name:"Karnataka",      code:"KA", seats:28, bjp:17, inc:9,  oth:2,  leading:"NDA",   turnout:69.0 },
-    { name:"Rajasthan",      code:"RJ", seats:25, bjp:14, inc:8,  oth:3,  leading:"NDA",   turnout:60.8 },
-    { name:"Gujarat",        code:"GJ", seats:26, bjp:25, inc:1,  oth:0,  leading:"NDA",   turnout:60.3 },
-    { name:"Andhra Pradesh", code:"AP", seats:25, bjp:2,  inc:4,  oth:19, leading:"NDA",   turnout:79.9 },
-    { name:"Kerala",         code:"KL", seats:20, bjp:1,  inc:18, oth:1,  leading:"INDIA", turnout:71.3 },
-    { name:"Odisha",         code:"OD", seats:21, bjp:20, inc:1,  oth:0,  leading:"NDA",   turnout:74.2 },
-    { name:"Telangana",      code:"TS", seats:17, bjp:8,  inc:8,  oth:1,  leading:"Mixed", turnout:64.4 },
-    { name:"Jharkhand",      code:"JH", seats:14, bjp:8,  inc:4,  oth:2,  leading:"NDA",   turnout:66.9 },
-    { name:"Assam",          code:"AS", seats:14, bjp:9,  inc:3,  oth:2,  leading:"NDA",   turnout:79.0 },
-    { name:"Punjab",         code:"PB", seats:13, bjp:2,  inc:7,  oth:4,  leading:"INDIA", turnout:61.5 },
-    { name:"Haryana",        code:"HR", seats:10, bjp:5,  inc:5,  oth:0,  leading:"Mixed", turnout:64.8 },
-    { name:"Delhi",          code:"DL", seats:7,  bjp:7,  inc:0,  oth:0,  leading:"NDA",   turnout:58.7 },
-    { name:"Uttarakhand",    code:"UK", seats:5,  bjp:5,  inc:0,  oth:0,  leading:"NDA",   turnout:56.5 },
-    { name:"Chhattisgarh",   code:"CG", seats:11, bjp:10, inc:1,  oth:0,  leading:"NDA",   turnout:71.3 }
+  regions: [
+    { name:"Chennai & Surroundings", seats:37, dmk:22, admk:8,  tvk:5, ntk:1, bjp:1 },
+    { name:"Northern TN (Vanniyar Belt)", seats:55, dmk:25, admk:18, pmk:3, tvk:8, ntk:1 },
+    { name:"Western TN (Kongu Nadu)", seats:50, admk:25, dmk:12, tvk:10, bjp:3, ntk:0 },
+    { name:"Cauvery Delta", seats:41, dmk:28, admk:8, tvk:3, ntk:2, bjp:0 },
+    { name:"Southern TN", seats:51, dmk:18, admk:16, tvk:9, ntk:4, bjp:4 }
   ],
   keySeats: [
-    { name:"Varanasi",      winner:"Narendra Modi",    party:"BJP", margin:152513, turnout:55.3 },
-    { name:"Rae Bareli",    winner:"Rahul Gandhi",     party:"INC", margin:390030, turnout:55.6 },
-    { name:"Wayanad",       winner:"Priyanka Gandhi",  party:"INC", margin:410931, turnout:73.7 },
-    { name:"Lucknow",       winner:"Rajnath Singh",    party:"BJP", margin:185100, turnout:52.8 },
-    { name:"Hyderabad",     winner:"Asaduddin Owaisi", party:"AIMIM",margin:338000,turnout:48.1 },
-    { name:"Kolkata South", winner:"Mala Roy",         party:"AITC",margin:74000,  turnout:72.1 }
+    { name:"Kolathur",     winner:"M.K. Stalin",      party:"DMK",   margin:55000, turnout:68.2 },
+    { name:"Edappadi",     winner:"Edappadi K. Palaniswami", party:"AIADMK", margin:42000, turnout:78.5 },
+    { name:"Thondamuthur", winner:"Thalapathy Vijay", party:"TVK",   margin:28500, turnout:75.1 },
+    { name:"Coimbatore South",winner:"K. Annamalai", party:"BJP",    margin:12000, turnout:69.4 },
+    { name:"Thiruvottiyur",winner:"Seeman",           party:"NTK",   margin:5200,  turnout:66.8 }
   ],
   insights: [
-    { icon:"📉", title:"BJP Lost 63 Seats",       text:"Biggest drop since 2004 — fell from 303 to 240" },
-    { icon:"📈", title:"Congress Doubled Tally",  text:"Rose from 52 to 99 — best since 2009" },
-    { icon:"🤝", title:"Coalition Government",    text:"First coalition in 10 years — NDA needs allies" },
-    { icon:"👩", title:"Record Women Elected",    text:"74 women MPs — highest ever in Lok Sabha history" },
-    { icon:"🗺️", title:"UP Delivered the Blow",  text:"BJP: 33 seats (down from 62) — SP surged to 37" },
-    { icon:"🌴", title:"South India Blanks BJP",  text:"Zero seats in Tamil Nadu & Kerala for BJP" }
+    { icon:"🎭", title:"TVK's Blockbuster Debut", text:"Vijay's TVK secures 35 seats and 15.8% vote share, completely disrupting the Dravidian duopoly." },
+    { icon:"⚖️", title:"Hung Assembly Scenario",  text:"DMK Alliance at 117 is exactly 1 seat short of the 118 majority mark." },
+    { icon:"🦁", title:"NTK Opens Account",       text:"Seeman's NTK finally wins 8 seats after years of vote-share growth." },
+    { icon:"📉", title:"AIADMK Holds Ground",     text:"Despite TVK's entry, AIADMK retains its Kongu belt stronghold with 65 seats." },
+    { icon:"🗳️", title:"Kongu Nadu Shift",        text:"Western TN sees a massive 4-way battle between AIADMK, DMK, TVK, and BJP." },
+    { icon:"🤝", title:"Kingmaker Vijay?",        text:"With neither DMK nor AIADMK crossing 118 alone, TVK holds the keys to Fort St. George." }
   ]
 };
