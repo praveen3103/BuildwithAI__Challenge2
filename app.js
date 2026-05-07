@@ -36,13 +36,13 @@ let charts = {}; // Store chart instances for replay updates
 // ── TICKER ────────────────────────────────────────────────────
 function buildTicker() {
   const items = [
-    '🔴 Tamil Nadu 2026: DMK Alliance 1 seat short of majority',
-    '🎭 Thalapathy Vijay\'s TVK makes massive debut with 35 seats',
-    '📉 AIADMK holds fort in Kongu Nadu, retains 65 seats',
-    '🦁 Seeman\'s NTK finally enters Assembly with 8 seats',
-    '🗳️ 73.4% overall voter turnout across Tamil Nadu',
-    '🤝 TVK holds the keys to government formation',
-    '📊 Annamalai wins Coimbatore South by 12,000 votes'
+    '🎭 TVK wins 108 seats — Thalapathy Vijay is Tamil Nadu\'s single largest party',
+    '⚖️ Hung Assembly: TVK needs 10 more seats for majority — INC talks ongoing',
+    '📉 DMK crashes from 133 to just 59 seats — worst result since 2011',
+    '🗳️ 73.4% voter turnout — Tamil Nadu votes massively for change',
+    '🍃 AIADMK continues decline: 66 seats in 2021 to 47 in 2026',
+    '❌ NTK blanked out despite 5.4% vote share — FPTP hurts Seeman',
+    '🤝 Congress with 14 seats holds the key to government formation'
   ];
   const doubled = [...items, ...items];
   const el = document.getElementById('ticker-inner');
@@ -134,7 +134,8 @@ function buildAnalytics() {
       labels: h.years,
       datasets: [
         { label: 'DMK', data: h.dmkSeats, borderColor: '#CC0000', backgroundColor: 'rgba(204,0,0,0.12)', tension: 0.4, fill: true, pointRadius: 5 },
-        { label: 'AIADMK', data: h.admkSeats, borderColor: '#009933', backgroundColor: 'rgba(0,153,51,0.12)', tension: 0.4, fill: true, pointRadius: 5 }
+        { label: 'AIADMK', data: h.admkSeats, borderColor: '#009933', backgroundColor: 'rgba(0,153,51,0.12)', tension: 0.4, fill: true, pointRadius: 5 },
+        { label: 'TVK', data: h.tvkSeats, borderColor: '#800080', backgroundColor: 'rgba(128,0,128,0.12)', tension: 0.4, fill: true, pointRadius: 5 }
       ]
     },
     options: { plugins: { legend: { labels: { color: '#9CA3AF' } } }, scales: { x: { grid: GRID }, y: { grid: GRID, min: 0, max: 180 } } }
@@ -263,13 +264,14 @@ async function askAI() {
   respEl.classList.add('loading');
 
   const context = `You are an election data analyst reporting on the Tamil Nadu Legislative Assembly Election 2026.
-Data context:
-- Total seats: 234. Majority needed: 118.
-- DMK Alliance (SPA) won 117 seats (1 short of majority).
-- AIADMK Alliance won 65 seats (held Kongu region).
-- TVK (Thalapathy Vijay) made a massive debut with 35 seats and 15.8% vote share. They are the kingmakers.
-- NTK (Seeman) finally won 8 seats.
-- BJP won 6 seats.
+Official results from Election Commission of India (ECI):
+- Election held: April 23, 2026. Results: May 4, 2026. Total seats: 234. Majority: 118.
+- TVK (Thalapathy Vijay): 108 seats — single largest party, 38.2% vote share.
+- DMK Alliance (SPA): 73 seats total (DMK alone: 59). Crashed from 133 in 2021.
+- AIADMK Alliance: 53 seats total (AIADMK alone: 47). Continues to decline.
+- INC: 14 seats — in talks to give outside support to TVK.
+- NTK: 0 seats despite 5.4% vote share.
+- It is a HUNG ASSEMBLY. TVK needs 10 more seats for majority.
 Answer concisely like a news anchor in 2-3 sentences. Do not use asterisks or formatting.`;
 
   let finalText = "";
@@ -304,24 +306,29 @@ Answer concisely like a news anchor in 2-3 sentences. Do not use asterisks or fo
 
 function getLocalAnswer(q) {
   const ql = q.toLowerCase();
-  if (ql.includes('kingmaker') || ql.includes('vijay') || ql.includes('tvk'))
-    return 'Actor Vijay\'s TVK party is the absolute kingmaker in this election. Making a blockbuster debut, they secured 35 seats and nearly 16% of the vote share. With the DMK alliance stuck at 117, they need TVK\'s support to form the government.';
-  if (ql.includes('dmk') || ql.includes('win') || ql.includes('stalin'))
-    return 'The DMK-led Secular Progressive Alliance emerged as the single largest block with 117 seats. However, this leaves them agonizingly close—just one seat short—of the 118 majority mark needed to form the government independently.';
-  if (ql.includes('aiadmk') || ql.includes('kongu'))
-    return 'Despite the intense multi-cornered contest, the AIADMK held its ground, particularly in its traditional stronghold of Kongu Nadu. They secured 65 seats overall, remaining the primary opposition force in the state.';
+  if (ql.includes('kingmaker') || ql.includes('who won') || ql.includes('largest'))
+    return 'TVK, Thalapathy Vijay\'s party, emerged as the single largest party with a stunning 108 seats in their very first election. However, they are 10 seats short of the 118 majority required, making the Congress party with 14 seats the crucial kingmaker for government formation.';
+  if (ql.includes('vijay') || ql.includes('tvk'))
+    return 'Thalapathy Vijay\'s Tamilaga Vettri Kazhagam made a blockbuster debut, securing 108 seats and 38.2% of the vote share. This is a historic performance for a party contesting its very first election, completely dismantling the 50-year old Dravidian duopoly in Tamil Nadu.';
+  if (ql.includes('dmk') || ql.includes('stalin'))
+    return 'The DMK suffered a massive defeat, crashing from 133 seats in 2021 to just 59 seats in 2026 — their worst result since 2011. Chief Minister M.K. Stalin retained his Kolathur seat, but the party\'s entire welfare narrative was overpowered by the TVK wave.';
+  if (ql.includes('aiadmk') || ql.includes('kongu') || ql.includes('palaniswami'))
+    return 'The AIADMK continued its post-Jayalalithaa decline, winning only 47 seats — down from 66 in 2021. They held some ground in Kongu Nadu, but the TVK wave swept through their traditional strongholds too. EPS retained his Edappadi seat.';
   if (ql.includes('ntk') || ql.includes('seeman'))
-    return 'After years of steadily increasing their vote share, Seeman\'s Naam Tamilar Katchi has finally broken through. The NTK successfully won 8 seats in the assembly, marking their first-ever legislative victory.';
-  return `Based on the 2026 data, Tamil Nadu has delivered a hung assembly. The DMK alliance is at 117, one seat shy of majority. Vijay's TVK debuted strongly with 35 seats, making them the ultimate kingmakers.`;
+    return 'Seeman\'s NTK, despite getting 5.4% of the vote, failed to win a single seat. This is the brutal reality of the First-Past-The-Post system — their vote was too evenly spread across constituencies to convert into legislative wins.';
+  if (ql.includes('turnout') || ql.includes('voter'))
+    return 'The 2026 Tamil Nadu election recorded a 73.4% voter turnout, one of the highest in recent assembly elections. The massive TVK wave drove unprecedented first-time voter participation, especially among youth aged 18-30.';
+  return 'Based on official ECI data: TVK won 108 seats (single largest), DMK alliance 73, AIADMK alliance 53. It is a hung assembly with no party crossing the 118 majority mark. Congress with 14 seats is the kingmaker, and government formation talks are ongoing.';
 }
 
 function buildLiveFeed() {
   const updates = [
-    { time: '04:30 PM', text: 'HUNG ASSEMBLY! DMK alliance stuck at 117, TVK becomes kingmaker', type: 'breaking' },
-    { time: '02:15 PM', text: 'Vijay\'s TVK crosses 30 seats in debut election', type: 'breaking' },
-    { time: '01:00 PM', text: 'AIADMK sweeps Kongu region, Edappadi Palaniswami wins easily', type: 'update' },
-    { time: '11:45 AM', text: 'Seeman\'s NTK leading in 8 constituencies', type: 'update' },
-    { time: '09:30 AM', text: 'Early trends show DMK alliance leading, but short of majority', type: 'update' },
+    { time:'04:30 PM', text:'TVK wins 108 seats — single largest party in Tamil Nadu! Hung assembly declared.', type:'breaking' },
+    { time:'03:15 PM', text:'DMK concedes defeat: crashes from 133 to 59 seats — Stalin retains Kolathur', type:'breaking' },
+    { time:'02:00 PM', text:'Congress (14 seats) announces support to TVK for government formation', type:'update' },
+    { time:'12:45 PM', text:'AIADMK holds Kongu — Palaniswami wins Edappadi by 38,000 margin', type:'update' },
+    { time:'11:00 AM', text:'NTK blanked: Seeman\'s party gets 5.4% votes but zero seats', type:'update' },
+    { time:'09:30 AM', text:'Early trends: Massive TVK wave sweeping Chennai and Northern TN', type:'update' }
   ];
   document.getElementById('live-feed').innerHTML = updates.map(u =>
     `<div class="feed-item">
@@ -349,19 +356,19 @@ function buildRadar() {
 
 // ── COMPARE ───────────────────────────────────────────────────
 function buildCompare() {
-  const dmk = ELECTION_DATA.parties.find(p => p.id === 'DMK');
-  const admk = ELECTION_DATA.parties.find(p => p.id === 'AIADMK');
+  const tvk  = ELECTION_DATA.parties.find(p => p.id === 'TVK');
+  const dmk  = ELECTION_DATA.parties.find(p => p.id === 'DMK');
   const rows = [
-    { label: 'Seats Won 2026', bVal: dmk.seats, iVal: admk.seats, max: 133 },
-    { label: 'Seats Won 2021', bVal: dmk.prevSeats, iVal: admk.prevSeats, max: 133 },
-    { label: 'Vote Share %', bVal: dmk.voteShare, iVal: admk.voteShare, max: 40 },
-    { label: 'Seat Change', bVal: dmk.seats - dmk.prevSeats, iVal: admk.seats - admk.prevSeats, max: 50 }
+    { label: 'Seats Won 2026', bVal: tvk.seats,  iVal: dmk.seats,  max: 134 },
+    { label: 'Seats Won 2021', bVal: tvk.prevSeats, iVal: dmk.prevSeats, max: 134 },
+    { label: 'Vote Share %',   bVal: tvk.voteShare, iVal: dmk.voteShare, max: 45  },
+    { label: 'Seat Change',    bVal: tvk.seats - tvk.prevSeats, iVal: dmk.seats - dmk.prevSeats, max: 134 }
   ];
   document.getElementById('compare-rows').innerHTML = rows.map(r => {
     const bW = Math.abs(r.bVal) / r.max * 100;
     const iW = Math.abs(r.iVal) / r.max * 100;
-    const bColor = r.bVal < 0 ? '#EF4444' : '#CC0000';
-    const iColor = r.iVal < 0 ? '#EF4444' : '#009933';
+    const bColor = r.bVal < 0 ? '#EF4444' : '#800080';
+    const iColor = r.iVal < 0 ? '#EF4444' : '#CC0000';
     return `<div class="compare-row">
       <div>
         <div class="cmp-val-l" style="color:${bColor}">${r.bVal > 0 && r.label.includes('Change') ? '+' : ''}${r.bVal}</div>
@@ -378,10 +385,12 @@ function buildCompare() {
   new Chart(document.getElementById('allianceBar'), {
     type: 'bar',
     data: {
-      labels: ['SPA 2021', 'SPA 2026', 'AIADMK+ 2021', 'AIADMK+ 2026'],
-      datasets: [{ data: [159, 117, 75, 65], backgroundColor: ['rgba(204,0,0,0.5)', '#CC0000', 'rgba(0,153,51,0.5)', '#009933'], borderRadius: 8 }]
+      labels: ['TVK 2021', 'TVK 2026', 'DMK 2021', 'DMK 2026', 'ADMK 2021', 'ADMK 2026'],
+      datasets: [{ data: [0, 108, 133, 59, 66, 47],
+        backgroundColor: ['rgba(128,0,128,0.4)', '#800080', 'rgba(204,0,0,0.4)', '#CC0000', 'rgba(0,153,51,0.4)', '#009933'],
+        borderRadius: 8 }]
     },
-    options: { plugins: { legend: { display: false } }, scales: { x: { grid: GRID }, y: { grid: GRID, max: 180 } } }
+    options: { plugins: { legend: { display: false } }, scales: { x: { grid: GRID }, y: { grid: GRID, max: 150 } } }
   });
 }
 
