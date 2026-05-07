@@ -45,11 +45,11 @@ const ELECTION_DATA = {
   },
 
   regions: [
-    { name:"Chennai & Surroundings",      seats:37, tvk:20, dmk:10, admk:5,  others:2 },
-    { name:"Northern TN (Vanniyar Belt)", seats:55, tvk:26, dmk:15, admk:11, others:3 },
-    { name:"Western TN (Kongu Nadu)",     seats:50, tvk:28, admk:16, dmk:4,  others:2 },
-    { name:"Cauvery Delta",               seats:41, tvk:16, dmk:18, admk:6,  others:1 },
-    { name:"Southern TN",                 seats:51, tvk:18, dmk:12, admk:15, others:6 }
+    { name:"Chennai & Surroundings",      seats:37, tvk:20, dmk:12, admk:4,  others:1 },
+    { name:"Northern TN (Vanniyar Belt)", seats:55, tvk:26, dmk:15, admk:12, others:2 },
+    { name:"Western TN (Kongu Nadu)",     seats:50, tvk:28, dmk:6,  admk:15, others:1 },
+    { name:"Cauvery Delta",               seats:41, tvk:16, dmk:20, admk:4,  others:1 },
+    { name:"Southern TN",                 seats:51, tvk:18, dmk:15, admk:16, others:2 }
   ],
 
   keySeats: [

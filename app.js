@@ -234,17 +234,10 @@ function buildStates() {
     return `<tr>
       <td><strong>${r.name}</strong></td>
       <td>${r.seats}</td>
+      <td style="color:#800080;font-weight:600">${r.tvk}</td>
       <td style="color:#CC0000;font-weight:600">${r.dmk}</td>
       <td style="color:#009933;font-weight:600">${r.admk}</td>
-      <td style="color:#800080;font-weight:600">${r.tvk}</td>
-      <td>
-        <div class="mini-bar" style="width:120px;">
-          <div class="mini-seg" style="width:${bPct}%;background:#CC0000"></div>
-          <div class="mini-seg" style="width:${iPct}%;background:#009933"></div>
-          <div class="mini-seg" style="width:${tPct}%;background:#800080"></div>
-          <div class="mini-seg" style="flex:1;background:#78909C"></div>
-        </div>
-      </td>
+      <td style="color:#78909C;font-weight:600">${r.others}</td>
     </tr>`;
   }).join('');
 }
@@ -427,11 +420,12 @@ function buildCompare() {
     </div>`;
   }).join('');
 
+  const admk = ELECTION_DATA.parties.find(p => p.id === 'ADMK');
   new Chart(document.getElementById('allianceBar'), {
     type: 'bar',
     data: {
       labels: ['TVK 2021', 'TVK 2026', 'DMK 2021', 'DMK 2026', 'ADMK 2021', 'ADMK 2026'],
-      datasets: [{ data: [0, 108, 133, 59, 66, 47],
+      datasets: [{ data: [tvk.prevSeats, tvk.seats, dmk.prevSeats, dmk.seats, admk.prevSeats, admk.seats],
         backgroundColor: ['rgba(128,0,128,0.4)', '#800080', 'rgba(204,0,0,0.4)', '#CC0000', 'rgba(0,153,51,0.4)', '#009933'],
         borderRadius: 8 }]
     },
