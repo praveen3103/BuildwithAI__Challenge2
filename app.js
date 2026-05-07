@@ -1,7 +1,17 @@
 // ── ElectionIQ · app.js ──────────────────────────────────────
 
-// Gemini API key (user should replace with their own)
-const GEMINI_API_KEY = 'AIzaSyD2FqCcDZ7n_ATw2hVitgkLUM9Sc-d_6fE';
+let GEMINI_API_KEY = '';
+
+// Fetch config from backend
+async function loadConfig() {
+  try {
+    const res = await fetch('/api/config');
+    const data = await res.json();
+    GEMINI_API_KEY = data.geminiApiKey;
+  } catch (e) {
+    console.error("Failed to load config", e);
+  }
+}
 
 // ── SECTION NAVIGATION ───────────────────────────────────────
 function showSection(id, btn) {
@@ -229,7 +239,7 @@ async function askAI() {
 - First coalition government in 10 years
 Answer concisely and factually in 3-4 sentences.`;
 
-  if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
+  if (!GEMINI_API_KEY) {
     setTimeout(() => {
       respEl.classList.remove('loading');
       respEl.textContent = getLocalAnswer(q);
@@ -340,7 +350,8 @@ function buildCompare() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadConfig();
   buildTicker();
   buildDashboard();
   document.getElementById('ai-input').addEventListener('keydown', e => { if (e.key === 'Enter') askAI(); });
