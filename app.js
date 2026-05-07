@@ -264,14 +264,14 @@ async function askAI() {
   respEl.classList.add('loading');
 
   const context = `You are an election data analyst reporting on the Tamil Nadu Legislative Assembly Election 2026.
-Official results from Election Commission of India (ECI):
-- Election held: April 23, 2026. Results: May 4, 2026. Total seats: 234. Majority: 118.
-- TVK (Thalapathy Vijay): 108 seats — single largest party, 38.2% vote share.
-- DMK Alliance (SPA): 73 seats total (DMK alone: 59). Crashed from 133 in 2021.
-- AIADMK Alliance: 53 seats total (AIADMK alone: 47). Continues to decline.
-- INC: 14 seats — in talks to give outside support to TVK.
-- NTK: 0 seats despite 5.4% vote share.
-- It is a HUNG ASSEMBLY. TVK needs 10 more seats for majority.
+OFFICIAL RESULTS from Election Commission of India (results.eci.gov.in), Last updated 04:18 PM, 05/05/2026:
+- Total seats: 234. Majority: 118.
+- TVK (Thalapathy Vijay): 108 seats — single largest party.
+- DMK: 59 seats (down from 133 in 2021 — worst since 2011).
+- AIADMK: 47 seats (down from 66).
+- INC: 5 seats. PMK: 4 seats. IUML: 2 seats. CPI: 2 seats. Others: 7 seats.
+- Alliance totals: TVK+ = 108, SPA (DMK+INC+IUML+CPI) = 68, AIADMK+ (ADMK+PMK) = 51.
+- HUNG ASSEMBLY: TVK needs 10 more seats for majority. No party/alliance has 118.
 Answer concisely like a news anchor in 2-3 sentences. Do not use asterisks or formatting.`;
 
   let finalText = "";
@@ -307,18 +307,20 @@ Answer concisely like a news anchor in 2-3 sentences. Do not use asterisks or fo
 function getLocalAnswer(q) {
   const ql = q.toLowerCase();
   if (ql.includes('kingmaker') || ql.includes('who won') || ql.includes('largest'))
-    return 'TVK, Thalapathy Vijay\'s party, emerged as the single largest party with a stunning 108 seats in their very first election. However, they are 10 seats short of the 118 majority required, making the Congress party with 14 seats the crucial kingmaker for government formation.';
+    return 'TVK, Thalapathy Vijay\'s party, emerged as the single largest party with a stunning 108 seats in their debut election. However, with majority at 118, TVK is still 10 short — and INC won only 5 seats, making government formation complex.';
   if (ql.includes('vijay') || ql.includes('tvk'))
-    return 'Thalapathy Vijay\'s Tamilaga Vettri Kazhagam made a blockbuster debut, securing 108 seats and 38.2% of the vote share. This is a historic performance for a party contesting its very first election, completely dismantling the 50-year old Dravidian duopoly in Tamil Nadu.';
+    return 'Thalapathy Vijay\'s Tamilaga Vettri Kazhagam made a blockbuster debut, securing 108 seats out of 234 and completely dismantling the 50-year old Dravidian duopoly in Tamil Nadu.';
   if (ql.includes('dmk') || ql.includes('stalin'))
-    return 'The DMK suffered a massive defeat, crashing from 133 seats in 2021 to just 59 seats in 2026 — their worst result since 2011. Chief Minister M.K. Stalin retained his Kolathur seat, but the party\'s entire welfare narrative was overpowered by the TVK wave.';
+    return 'The DMK suffered a massive defeat, crashing from 133 seats in 2021 to just 59 seats in 2026 — their worst result since 2011. M.K. Stalin retained his Kolathur seat but the party was swept away by the TVK wave.';
   if (ql.includes('aiadmk') || ql.includes('kongu') || ql.includes('palaniswami'))
-    return 'The AIADMK continued its post-Jayalalithaa decline, winning only 47 seats — down from 66 in 2021. They held some ground in Kongu Nadu, but the TVK wave swept through their traditional strongholds too. EPS retained his Edappadi seat.';
+    return 'The AIADMK won 47 seats — down from 66 in 2021, continuing their post-Jayalalithaa decline. Their alliance partner PMK won 4 seats, giving the AIADMK+ bloc a total of 51 seats.';
+  if (ql.includes('inc') || ql.includes('congress'))
+    return 'The Indian National Congress had a disappointing result, winning only 5 seats. Despite being a key alliance partner in the SPA (DMK alliance), INC could not leverage the national momentum into Tamil Nadu wins.';
   if (ql.includes('ntk') || ql.includes('seeman'))
-    return 'Seeman\'s NTK, despite getting 5.4% of the vote, failed to win a single seat. This is the brutal reality of the First-Past-The-Post system — their vote was too evenly spread across constituencies to convert into legislative wins.';
+    return 'Seeman\'s NTK, despite a significant vote share, failed to win a single seat in the 2026 Tamil Nadu assembly election — a brutal outcome from the First-Past-The-Post system.';
   if (ql.includes('turnout') || ql.includes('voter'))
-    return 'The 2026 Tamil Nadu election recorded a 73.4% voter turnout, one of the highest in recent assembly elections. The massive TVK wave drove unprecedented first-time voter participation, especially among youth aged 18-30.';
-  return 'Based on official ECI data: TVK won 108 seats (single largest), DMK alliance 73, AIADMK alliance 53. It is a hung assembly with no party crossing the 118 majority mark. Congress with 14 seats is the kingmaker, and government formation talks are ongoing.';
+    return 'The 2026 Tamil Nadu election recorded a 73.4% voter turnout. The massive TVK wave drove unprecedented participation, especially among youth and first-time voters.';
+  return 'Official ECI results (results.eci.gov.in): TVK 108, DMK 59, AIADMK 47, INC 5, PMK 4, IUML 2, CPI 2. It is a hung assembly — TVK needs 10 more seats to reach the 118 majority mark.';
 }
 
 function buildLiveFeed() {
