@@ -41,7 +41,7 @@ const ELECTION_DATA = {
     dmkSeats: [96,   23,   89,   133,  59  ],
     admkSeats:[61,   150,  134,  66,   47  ],
     tvkSeats: [0,    0,    0,    0,    108 ],
-    turnout:  [70.8, 78.1, 74.2, 73.6, 73.4]
+    turnout:  [70.8, 78.1, 74.2, 73.6, 85.1]
   },
 
   regions: [

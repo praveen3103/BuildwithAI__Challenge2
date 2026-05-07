@@ -188,7 +188,7 @@ function buildAnalytics() {
       labels: h.years,
       datasets: [{ label: 'Turnout %', data: h.turnout, backgroundColor: h.years.map((_, i) => i === 4 ? '#10B981' : 'rgba(16,185,129,0.35)'), borderRadius: 6 }]
     },
-    options: { plugins: { legend: { labels: { color: '#9CA3AF' } } }, scales: { x: { grid: GRID }, y: { grid: GRID, min: 60, max: 80, ticks: { callback: v => v + '%' } } } }
+    options: { plugins: { legend: { labels: { color: '#9CA3AF' } } }, scales: { x: { grid: GRID }, y: { grid: GRID, min: 60, max: 90, ticks: { callback: v => v + '%' } } } }
   });
 
   const top6 = ELECTION_DATA.parties.slice(0, 6);
